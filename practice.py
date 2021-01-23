@@ -1,0 +1,1 @@
+print(bytes.fromhex('7365637572697479').decode('utf-8'))
