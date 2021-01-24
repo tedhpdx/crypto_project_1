@@ -2,7 +2,8 @@ from sub_key_generator import generate
 from f_table import get_f_table_value
 
 eight_byte_block = 'security'
-key = 'abcdef0123456789'
+
+key ='abcdef0123456789'
 
 block_list = []
 
@@ -10,6 +11,7 @@ for letter in eight_byte_block:
     stripped = hex(ord(letter))[2:]
     block_list.append(stripped)
 
+#block_list = ['01','23','45','67','89','ab','cd','ef']
 
 word_list = []
 i = 0
