@@ -176,12 +176,11 @@ def encrypt(plaintext):
         plaintext = plaintext[8:]
 
 round_number = 0
-key = '0123456789fade456789'
-#key ='abcdef0123456789abcd'
+key ='abcdef0123456789abcd'
 sub_key_collection = generate(key)
 
 master = 2
-filename = '3.txt.ciphertext'
+filename = 'ciphertext.txt'
 
 if master is 1:
     plaintext = open(filename, "r").read().replace('\n','')
