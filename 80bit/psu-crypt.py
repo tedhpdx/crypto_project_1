@@ -7,7 +7,7 @@ from f_table import get_f_table_value
 def start_fisal_cipher(eight_byte_block):
     block_list = []
     for letter in eight_byte_block:
-        if letter is not '\n':
+        if letter != '\n':
             stripped = hex(ord(letter))[2:]
         else:
             stripped = '0'+ hex(ord(letter))[2:]
@@ -76,7 +76,7 @@ def decrypt_fisal_cipher(eight_byte_block):
 
 def g_permutation(r, round_number, sub_key_list):
     hex_string = (hex(r))[2:]
-    while len(hex_string) is not 4:
+    while len(hex_string) != 4:
         hex_string = '0' + hex_string
     g1 = int(hex_string[:2], 16)
     g2 = int(hex_string[2:], 16)
@@ -201,14 +201,14 @@ if __name__=='__main__':
 
     round_number = 0
     flag = sys.argv[1][1:]
-    if flag is 'e':
+    if flag == 'e':
         plaintext_filename = sys.argv[2]
         plaintext = open(plaintext_filename, "r").read().replace('\n','')
         key_filename = sys.argv[3]
         key = open(key_filename, "r").read()
         sub_key_collection = generate(key)
         encrypt(plaintext)
-    elif flag is 'd':
+    elif flag == 'd':
         ciphertext_filename = sys.argv[2]
         ciphertext = open(ciphertext_filename, "r").read().replace('\n','')
         key_filename = sys.argv[3]
