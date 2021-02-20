@@ -208,7 +208,6 @@ if __name__=='__main__':
         key = open(key_filename, "r").read()
         sub_key_collection = generate(key)
         encrypt(plaintext)
-
     elif flag is 'd':
         ciphertext_filename = sys.argv[2]
         ciphertext = open(ciphertext_filename, "r").read().replace('\n','')
@@ -217,3 +216,10 @@ if __name__=='__main__':
         plaintext_filename = sys.argv[4] #output filename
         sub_key_collection = generate(key)
         decrypt(ciphertext)
+    else:
+        print("***command line input error***")
+        print("Please use the following format")
+        print("To encrypt:")
+        print("python3 psu-crypt.py -e plaintext.txt key.txt ciphertext.txt")
+        print("To decrypt:")
+        print("python3 psu-crypt.py -d ciphertext.txt key.txt plaintext.txt")
