@@ -1,3 +1,5 @@
+import sys
+
 from sub_key_generator import generate
 from f_table import get_f_table_value
 
@@ -157,34 +159,22 @@ def final_steps(r_values, key_list):
     ciphertext = '0x' + c0 + c1 + c2 + c3
     return ciphertext
 
-
-
-
-
-
 def encrypt(plaintext):
     ciphertext = ''
     while (plaintext):
         while len(plaintext) < 8:
             plaintext += '0'
-        print(plaintext[:8])
+        #print(plaintext[:8])
         r_values, key_list = start_fisal_cipher(plaintext[:8])
         process_rounds(r_values, round_number, sub_key_collection)
         ciphertext += final_steps(r_values, key_list)[2:]
         ciphertext += '\n'
-        print (ciphertext)
+        #print (ciphertext)
         plaintext = plaintext[8:]
-
-round_number = 0
-key ='abcdef0123456789abcd'
-sub_key_collection = generate(key)
-
-master = 2
-filename = 'ciphertext.txt'
-
-if master is 1:
-    plaintext = open(filename, "r").read().replace('\n','')
-    encrypt(plaintext)
+    ciphertext_filename = sys.argv[4]
+    file = open(ciphertext_filename, "w")
+    file.write(ciphertext)
+    file.close()
 
 def decrypt(ciphertext):
     final_plaintext = ''
@@ -199,10 +189,31 @@ def decrypt(ciphertext):
         plaintext += final_steps(r_values, key_list)[2:]
         bytes_obj = bytes.fromhex(plaintext)
         final_plaintext += bytes_obj.decode("ASCII")
-        print (final_plaintext)
+        #print (final_plaintext)
         ciphertext = ciphertext[16:]
+    plaintext_filename = sys.argv[4]
+    file = open(plaintext_filename, "w")
+    file.write(final_plaintext)
+    file.close()
 
-if master is not 1:
-    ciphertext = open(filename, "r").read().replace('\n','')
-    decrypt(ciphertext)
 
+if __name__=='__main__':
+
+    round_number = 0
+    flag = sys.argv[1][1:]
+    if flag is 'e':
+        plaintext_filename = sys.argv[2]
+        plaintext = open(plaintext_filename, "r").read().replace('\n','')
+        key_filename = sys.argv[3]
+        key = open(key_filename, "r").read()
+        sub_key_collection = generate(key)
+        encrypt(plaintext)
+
+    elif flag is 'd':
+        ciphertext_filename = sys.argv[2]
+        ciphertext = open(ciphertext_filename, "r").read().replace('\n','')
+        key_filename = sys.argv[3]
+        key = open(key_filename, "r").read()
+        plaintext_filename = sys.argv[4] #output filename
+        sub_key_collection = generate(key)
+        decrypt(ciphertext)
